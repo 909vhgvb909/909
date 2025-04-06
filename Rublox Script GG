@@ -1,60 +1,86 @@
-```
-local deltaScript = {}
-
-local options = {
-    ["جودة منخفضة"] = {
-        ["GlobalShadows"] = false,
-        ["Brightness"] = 1,
-        ["Resolution"] = {1024, 768},
-        ["FrameRate"] = 30
-    },
-    ["جودة متوسطة"] = {
-        ["GlobalShadows"] = true,
-        ["Brightness"] = 1.5,
-        ["Resolution"] = {1280, 1024},
-        ["FrameRate"] = 60
-    },
-    ["جودة عالية"] = {
-        ["GlobalShadows"] = true,
-        ["Brightness"] = 2,
-        ["Resolution"] = {1920, 1080},
-        ["FrameRate"] = 120
-    }
-}
-
-function deltaScript:setGraphics(option)
-    local settings = options[option]
-    if settings then
-        game.Lighting.GlobalShadows = settings.GlobalShadows
-        game.Lighting.Brightness = settings.Brightness
-        game.GraphicsSettings.Resolution = settings.Resolution
-        game.GraphicsSettings.FrameRate = settings.FrameRate
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 300, 0, 250)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -125)
+Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Frame.Visible = true
+local HideButton = Instance.new("TextButton")
+HideButton.Parent = Frame
+HideButton.Size = UDim2.new(0, 100, 0, 50)
+HideButton.Position = UDim2.new(0.5, -50, 0, 10)
+HideButton.Text = "إخفاء القائمة"
+HideButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+HideButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+HideButton.MouseButton1Click:Connect(function()
+    Frame.Visible = not Frame.Visible
+end)
+local QualityLabel = Instance.new("TextLabel")
+QualityLabel.Parent = Frame
+QualityLabel.Size = UDim2.new(0, 280, 0, 30)
+QualityLabel.Position = UDim2.new(0, 10, 0, 60)
+QualityLabel.Text = "اختر الجودة:"
+QualityLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+QualityLabel.BackgroundTransparency = local QualityDropdown = Instance.new("TextButton")
+QualityDropdown.Parent = Frame
+QualityDropdown.Size = UDim2.new(0, 280, 0, 40)
+QualityDropdown.Position = UDim2.new(0, 10, 0, 100)
+QualityDropdown.Text = "جودة متوسطة"
+QualityDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+QualityDropdown.BackgroundColor3 = Color3.fromRGB(100, 100, 100) QualityDropdown.MouseButton1Click:Connect(function()
+    local currentQuality = QualityDropdown.Text
+    if currentQuality == "جودة متوسطة" then
+        QualityDropdown.Text = "جودة قوية"
+        game:GetService("RunService").Heartbeat:Connect(function()
+end)
+    elseif currentQuality == "جودة قوية" then
+        QualityDropdown.Text = "جودة ضعيفة"
+        game:GetService("RunService").Heartbeat:Connect(function()
+end)
+    elseif currentQuality == "جودة قوية" then
+        QualityDropdown.Text = "جودة ضعيفة"
+    QualityDropdown.Text = "جودة متوسطة"
+        game:GetService("RunService").Heartbeat:Connect(function()    game:GetService("RunService").Heartbeat:Connect(function()
+        end)
     end
-end
-
-function deltaScript:upgradeGraphics()
-    local currentOption = "جودة متوسطة"
-    if options[currentOption] then
-        local nextOption = "جودة عالية"
-        deltaScript:setGraphics(nextOption)
-    end
-end
-
-local menu = {
-    ["ضبط الجودة"] = {
-        ["جودة منخفضة"] = function() deltaScript:setGraphics("جودة منخفضة") end,
-        ["جودة متوسطة"] = function() deltaScript:setGraphics("جودة متوسطة") end,
-        ["جودة عالية"] = function() deltaScript:setGraphics("جودة عالية") end
-    },
-    ["رفع الجودة"] = function() deltaScript:upgradeGraphics() end
-}
-
-for option, value in pairs(menu) do
-    print(option)
-    if type(value) == "table" then
-        for subOption, subValue in pairs(value) do
-            print("  " .. subOption)
-        end
-    end
-end
-```
+end)
+local LanguageLabel = Instance.new("TextLabel")
+LanguageLabel.Parent = Frame
+LanguageLabel.Size = UDim2.new(0, 280, 0, 30)
+LanguageLabel.Position = UDim2.new(0, 10, 0, 150)
+LanguageLabel.Text = "اختر اللغة:"
+LanguageLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+LanguageLabel.BackgroundTransparency = 1
+local LanguageDropdown = Instance.new("TextButton")
+LanguageDropdown.Parent = Frame
+LanguageDropdown.Size = UDim2.new(0, 280, 0, 40)
+LanguageDropdown.Position = UDim2.new(0, 10, 0, 190)
+LanguageDropdown.Text = "العربية"
+LanguageDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+LanguageDropdown.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+LanguageDropdown.MouseButton1Click:Connect(function()
+    local currentLanguage = LanguageDropdown.Text
+    if currentLanguage == "العربية" then
+        LanguageDropdown.Text = "الإنجليزية"
+else
+        LanguageDropdown.Text = "العربية"end
+end)
+local FPSUpButton = Instance.new("TextButton")
+FPSUpButton.Parent = Frame
+FPSUpButton.Size = UDim2.new(0, 280, 0, 40)
+FPSUpButton.Position = UDim2.new(0, 10, 0, 230)
+FPSUpButton.Text = "رفع الفريمات"
+FPSUpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+FPSUpButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+game:GetService("UserSettings"):GetService("GameSettings"):SetFPSLimit(60)  end)
+local FPSDownButton = Instance.new("TextButton")
+FPSDownButton.Parent = Frame
+FPSDownButton.Size = UDim2.new(0, 280, 0, 40)
+FPSDownButton.Position = UDim2.new(0, 10, 0, 270)
+FPSDownButton.Text = "خفض الفريمات"
+FPSDownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+FPSDownButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+ game:GetService("UserSettings"):GetService("GameSettings"):SetFPSLimit(30)
+end)

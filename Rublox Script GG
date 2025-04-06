@@ -1,0 +1,60 @@
+```
+local deltaScript = {}
+
+local options = {
+    ["جودة منخفضة"] = {
+        ["GlobalShadows"] = false,
+        ["Brightness"] = 1,
+        ["Resolution"] = {1024, 768},
+        ["FrameRate"] = 30
+    },
+    ["جودة متوسطة"] = {
+        ["GlobalShadows"] = true,
+        ["Brightness"] = 1.5,
+        ["Resolution"] = {1280, 1024},
+        ["FrameRate"] = 60
+    },
+    ["جودة عالية"] = {
+        ["GlobalShadows"] = true,
+        ["Brightness"] = 2,
+        ["Resolution"] = {1920, 1080},
+        ["FrameRate"] = 120
+    }
+}
+
+function deltaScript:setGraphics(option)
+    local settings = options[option]
+    if settings then
+        game.Lighting.GlobalShadows = settings.GlobalShadows
+        game.Lighting.Brightness = settings.Brightness
+        game.GraphicsSettings.Resolution = settings.Resolution
+        game.GraphicsSettings.FrameRate = settings.FrameRate
+    end
+end
+
+function deltaScript:upgradeGraphics()
+    local currentOption = "جودة متوسطة"
+    if options[currentOption] then
+        local nextOption = "جودة عالية"
+        deltaScript:setGraphics(nextOption)
+    end
+end
+
+local menu = {
+    ["ضبط الجودة"] = {
+        ["جودة منخفضة"] = function() deltaScript:setGraphics("جودة منخفضة") end,
+        ["جودة متوسطة"] = function() deltaScript:setGraphics("جودة متوسطة") end,
+        ["جودة عالية"] = function() deltaScript:setGraphics("جودة عالية") end
+    },
+    ["رفع الجودة"] = function() deltaScript:upgradeGraphics() end
+}
+
+for option, value in pairs(menu) do
+    print(option)
+    if type(value) == "table" then
+        for subOption, subValue in pairs(value) do
+            print("  " .. subOption)
+        end
+    end
+end
+```
